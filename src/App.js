@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [users, setUsers] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [newUser, setNewUser] = useState({
     firstName: "",
     lastName: "",
