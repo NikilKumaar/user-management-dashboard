@@ -17,10 +17,7 @@ function App() {
   const [error, setError] = useState("");
   const [emailValidation, setEmailValidation] = useState("")
 
-  useEffect(() => {
-    fetchUsers();
-  },[]);
-
+  
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
@@ -31,13 +28,10 @@ function App() {
       setError("Error fetching data from API.");
     }
   };
-
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-  if (!emailRegex.test(users.email)) {
-    setError("Invalid email format");
-    return;
-  }
-
+  
+  useEffect(() => {
+    fetchUsers();
+  },[]);
   const handleAddUser = async () => {
     try {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
