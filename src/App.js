@@ -37,7 +37,7 @@ function App() {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       const email = editingUser.email
       if (!emailRegex.test(email)) {
-        setError("Invalid email format");
+        setEmailValidation("Invalid email format");
         return;
       }
       const response = await axios.post(
