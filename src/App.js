@@ -37,7 +37,7 @@ function App() {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       const email = editingUser.email
       if (!emailRegex.test(email)) {
-        setEmailValidation("Invalid email format");
+        setEmailValidation("Invalid Email Format");
         return;
       }
       const response = await axios.post(
@@ -60,7 +60,7 @@ function App() {
     try {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
       if (!emailRegex.test(editingUser.email)) {
-        setEmailValidation("Invalid email format");
+        setEmailValidation("Invalid Email Format");
         return;
       }
       const response = await axios.put(
@@ -94,8 +94,13 @@ function App() {
 
   return (
     <div className="container mx-auto p-4 bg-slate-300">
-      <h1 className="text-2xl font-bold text-center mb-4">USER MANAGEMENT DASHBOARD</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">
+        USER MANAGEMENT DASHBOARD
+      </h1>
       {error && <div className="bg-red-500 text-white p-2 mb-4">{error}</div>}
+      {emailValidation && (
+        <div className="bg-red-500 text-white p-2 mb-4">{emailValidation}</div>
+      )}
 
       {/* User List */}
       <div className="mb-4 flex justify-center">
@@ -147,7 +152,6 @@ function App() {
               setEditingUser({ ...editingUser, email: e.target.value })
             }
           />
-          {emailValidation && toast.error("Invalid Email Format")}
           <input
             type="text"
             className="border p-2 mb-2 w-full"
@@ -176,17 +180,17 @@ function App() {
 
       <div className="space-y-4">
         <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="dark"
-/>
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         {users.map((user) => (
           <div
             key={user.id}
