@@ -15,10 +15,11 @@ function App() {
   });
   const [editingUser, setEditingUser] = useState(null);
   const [error, setError] = useState("");
+  const [emailValidation, setEmailValidation] = useState("")
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  },[]);
 
   const fetchUsers = async () => {
     try {
@@ -31,13 +32,25 @@ function App() {
     }
   };
 
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  if (!emailRegex.test(users.email)) {
+    setError("Invalid email format");
+    return;
+  }
+
   const handleAddUser = async () => {
     try {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      const email = editingUser.email
+      if (!emailRegex.test(email)) {
+        setError("Invalid email format");
+        return;
+      }
       const response = await axios.post(
         "https://jsonplaceholder.typicode.com/users",
         {
           name: `${editingUser.firstName} ${editingUser.lastName}`,
-          email: editingUser.email,
+          email: email,
           department: editingUser.department,
         }
       );
@@ -45,12 +58,17 @@ function App() {
       setNewUser({ firstName: "", lastName: "", email: "", department: "" });
       toast.success("User Added Successfuly!")
     } catch (error) {
-      setError("Error adding new user.");
+      setEmailValidation("Error adding new user.");
     }
   };
 
   const handleEditUser = async () => {
     try {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+      if (!emailRegex.test(editingUser.email)) {
+        setEmailValidation("Invalid email format");
+        return;
+      }
       const response = await axios.put(
         `https://jsonplaceholder.typicode.com/users/${editingUser.id}`,
         {
@@ -135,6 +153,7 @@ function App() {
               setEditingUser({ ...editingUser, email: e.target.value })
             }
           />
+          {emailValidation && toast.error("Invalid Email Format")}
           <input
             type="text"
             className="border p-2 mb-2 w-full"
