@@ -52,7 +52,7 @@ function App() {
       setNewUser({ firstName: "", lastName: "", email: "", department: "" });
       toast.success("User Added Successfuly!")
     } catch (error) {
-      setEmailValidation("Error adding new user.");
+      setError("Error adding new user.");
     }
   };
 
