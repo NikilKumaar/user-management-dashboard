@@ -40,6 +40,10 @@ function App() {
         setEmailValidation("Invalid Email Format");
         return;
       }
+      else
+      {
+        setEmailValidation("")
+        }
       const response = await axios.post(
         "https://jsonplaceholder.typicode.com/users",
         {
@@ -62,6 +66,10 @@ function App() {
       if (!emailRegex.test(editingUser.email)) {
         setEmailValidation("Invalid Email Format");
         return;
+      }
+      else
+      {
+        setEmailValidation("")
       }
       const response = await axios.put(
         `https://jsonplaceholder.typicode.com/users/${editingUser.id}`,
